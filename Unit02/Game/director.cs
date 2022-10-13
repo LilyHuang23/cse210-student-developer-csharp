@@ -11,7 +11,7 @@ namespace Unit02.Game
     /// </summary>
     public class Director
     {
-        List<Die> _dice = new List<Die>();
+        List<Card> _card = new List<Card>();
         bool _isPlaying = true;
         int _score = 0;
         int _totalScore = 0;
@@ -24,8 +24,8 @@ namespace Unit02.Game
             // create 5 dice
             for (int i = 0; i < 5; i++)
             {
-                Die die = new Die();
-                _dice.Add(die);
+                Card card = new Card();
+                _card.Add(card);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Unit02.Game
         /// </summary>
         public void GetInputs()
         {
-            Console.Write("Roll dice? [y/n] ");
+            Console.Write("Draw a card? [y/n] ");
             string rollDice = Console.ReadLine();
             _isPlaying = (rollDice == "y");
         }
@@ -63,10 +63,10 @@ namespace Unit02.Game
             }
 
             _score = 0;
-            foreach (Die die in _dice)
+            foreach (Card card in _card)
             {
-                die.Roll();
-                _score += die.points;
+                card.Draw();
+                _score += card.points;
             }
             _totalScore += _score;
         }
@@ -82,9 +82,9 @@ namespace Unit02.Game
             }
 
             string values = "";
-            foreach (Die die in _dice)
+            foreach (Card card in _card)
             {
-                values += $"{die.value} ";
+                values += $"{card.value} ";
             }
 
             Console.WriteLine($"You rolled: {values}");
