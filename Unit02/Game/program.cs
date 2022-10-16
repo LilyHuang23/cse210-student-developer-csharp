@@ -1,8 +1,7 @@
 using Unit02.Game;
 
-namespace Unit02
+namespace Unit02.Game
 {
-
     class Program
     {
         static void Main(string[] args)

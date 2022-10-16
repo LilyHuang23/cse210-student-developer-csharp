@@ -5,32 +5,17 @@ namespace Unit02.Game
 {
     // TODO: Implement the Card class as follows...
     // 1) Add the class declaration. Use the following class comment.
-    public class Card{
+    public class Card
+    {
         public int value;
         public int points;
 
-        public Card(){
-            value = 1;
-            points = 300;
+        public Card(int value){      
+            int _value = value; 
         }
-        public void Draw(){
-            Random r = new Random();
-            value = r.Next(1,14);
-            if (value == 1){
-                points = 100;
-            }
-            // else if(value == 5){
-            //     points = 50;
-            // }
-            else {
-                points = -75;
-            }
-        
-        }
-
     }
 
-    }
+}
         /// <summary>
         /// A small cube with a different number of spots on each of its six sides.
         /// 
