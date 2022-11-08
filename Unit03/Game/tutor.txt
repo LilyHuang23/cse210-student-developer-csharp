@@ -1,0 +1,30 @@
+if word contains the guess
+    use word.replace() to replace all isntances of the underscore with the guess
+
+    for each letter in the word
+        set a new string to the old string except with every instance of 
+        underscore replaced with the guess
+
+.replace(): what does it do?
+
+wordUnderLine: " _ _ _ _ _" (shark)
+
+guess: 'k'
+
+if word contains 'k':
+    wordUnderLine will replace every underscore with a 'k'
+
+result: "kkkkk"
+
+Revision: replace wordUnderLine string with a dictionary containing
+a key-pair value for every letter in the secret word
+
+example:
+* secret word is "shark"
+* therefore the wordUnderLine will be:
+
+{
+    s: " _",
+    h: " _",
+    ...
+}
