@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 
 namespace Unit03
@@ -11,46 +12,87 @@ namespace Unit03
     /// </summary>
     public class Word
     {
-        public string word = "apple";
-        public string hint = "_____";  
-        // public string hint = "";      
-        public bool DoGuess(string guess){
-                  
+        string randword;
+        string hint;
+        // get a random word from the file
+
+        public Word(){
+            getWord();
+            wordToHint();
+        }                
+        public void getWord()
+        {
+            List<string> lines = new List<string>(File.ReadLines("Game/sample.txt"));
+
+            Random rand = new Random();
+            int randomIndex = rand.Next(0, lines.Count); // pick a random number
+            randword = lines[randomIndex];
+
+        }
+        // replace the word to underline
+
+        public void wordToHint()
+        {
+            hint = randword;
+            int i = 0;
+            foreach (char letter in randword)
+            
+            {
+                
+                hint = hint.Remove(i, 1).Insert(i, Convert.ToString("_"));
+                i++;
+            }
+
+        }
+        public bool DoGuess(string guess)
+        {
+
             // Check whether a letter is in a word
-            if (word.Contains(guess)){
+            if (randword.Contains(guess))
+            {
                 int i = 0;
                 // Loop through each letter in a word
-                foreach (char letter in word){
+                foreach (char letter in randword)
+                {
                     // Do something here...
-                    if (letter.ToString() == guess){
-                        hint = hint.Remove(i,1).Insert(i,Convert.ToString(guess));                       
+                    if (letter.ToString() == guess)
+                    {
+                        hint = hint.Remove(i, 1).Insert(i, Convert.ToString(guess));
                     }
                     i++;
                 }
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
-                     
-        }
-        
 
-        public string GetHint(){
+        }
+        public string GetHint()
+        {
             return hint;
         }
+
+
+
         // check if word complete
-        public bool wordComplete(string hint, string word){
-            if (hint == word){
+        public bool wordComplete()
+        {
+            if (hint == randword)
+            {
                 return true;
             }
-            
-            else{
-                return false;
-            }                     
 
-        }       
-    
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }
+
+
+
 

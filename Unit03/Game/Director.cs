@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Unit03
 {
     public class Director
     {
         Word _word = new Word();
+        Random randword = new Random();
         bool _isplaying = true;
         bool _isCorrect = true;
-        bool _wordComplete = true;
+        bool _wordComplete = false;
         // string _guess = "";
         TerminalService _terminalService = new TerminalService();
         Jamper _jamper = new Jamper();
@@ -20,13 +22,14 @@ namespace Unit03
 
         public void StartGame()
         {
-           
+            _jamper.displayJumper();
             while (_isplaying)
             {
                 GetInput();
                 DoUpdate();
                 DoOutput();
             }
+
         }
         //
         public void GetInput()
@@ -41,17 +44,17 @@ namespace Unit03
             /// <summary>
             /// Dispaly new result, include update new hint and parachute 
             /// </summary>
+            
 
             // _word.DoGuess();
             if (!_isCorrect){
+
                 _jamper.lessParachute();
             }
-            else if(_wordComplete == true){
-                _terminalService.WriteText("You win!");
-            }
-            _jamper.displayJumper();
-            string hint = _word.GetHint();
-            _terminalService.WriteText(hint); 
+            //check word complete
+            
+            _wordComplete = _word.wordComplete();                   
+            
             
                
 
@@ -61,16 +64,24 @@ namespace Unit03
         /// </summary>
         private void DoOutput()
         {
-            if(!_isplaying){
+            if(_wordComplete){
+                _terminalService.WriteText("You win!");
+                _isplaying = false;
+            }
+            else if(!_jamper.checkLifes()){
                 _jamper.changeParachute();
+                _jamper.displayJumper();
                 _terminalService.WriteText("Game over");
-
+                _isplaying = false;
             }
             else 
             {    
-                _terminalService.WriteText("You win!");
+                _jamper.displayJumper();
+                string hint = _word.GetHint();
+                _terminalService.WriteText(hint); 
                 
             }
+            
             
             // update word & display man life
             

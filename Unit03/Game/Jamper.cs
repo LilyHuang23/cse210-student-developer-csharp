@@ -12,7 +12,6 @@ namespace Unit03
     public class Jamper
     {
         List<string> manList = new List<string>();
-        bool _isplaying = true;
 
 
         public Jamper() {
@@ -55,10 +54,8 @@ namespace Unit03
         /// Change the man's head from O to X.
         /// </summary>
         public void changeParachute(){
-            if (manList.Count <= 5)
-            {
-                manList[0].Replace(@"     O     ", @"     X     ");
-            }
+
+            manList[0] = "     X     ";
         }
         /// <summary>
         /// chaeck life is enough, if not thee game will end
@@ -66,7 +63,7 @@ namespace Unit03
         public bool checkLifes()
         {
             if (manList.Count > 5){
-                return _isplaying;
+                return true;
             }
             else {
                 return false;
