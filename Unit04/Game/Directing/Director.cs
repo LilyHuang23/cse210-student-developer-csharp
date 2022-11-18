@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unit04.Game.Casting;
 using Unit04.Game.Services;
@@ -15,6 +16,8 @@ namespace Unit04.Game.Directing
     {
         private KeyboardService _keyboardService = null;
         private VideoService _videoService = null;
+        private int score = 0;
+        private Artifact item = new Artifact();
 
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
@@ -45,40 +48,48 @@ namespace Unit04.Game.Directing
         }
 
         /// <summary>
-        /// Gets directional input from the keyboard and applies it to the robot.
+        /// Gets directional input from the keyboard and applies it to the player.
         /// </summary>
         /// <param name="cast">The given cast.</param>
         private void GetInputs(Cast cast)
         {
-            Actor robot = cast.GetFirstActor("robot");
+            Actor player = cast.GetFirstActor("player");
             Point velocity = _keyboardService.GetDirection();
-            robot.SetVelocity(velocity);     
+            player.SetVelocity(velocity);     
         }
 
         /// <summary>
-        /// Updates the robot's position and resolves any collisions with artifacts.
+        /// Updates the player's position and resolves any collisions with artifacts.
         /// </summary>
         /// <param name="cast">The given cast.</param>
         private void DoUpdates(Cast cast)
         {
             Actor banner = cast.GetFirstActor("banner");
-            Actor robot = cast.GetFirstActor("robot");
+            Actor player = cast.GetFirstActor("player");
             List<Actor> artifacts = cast.GetActors("artifacts");
 
             banner.SetText("");
             int maxX = _videoService.GetWidth();
             int maxY = _videoService.GetHeight();
-            robot.MoveNext(maxX, maxY);
+            player.MoveNext(maxX, maxY);
 
-            foreach (Actor actor in artifacts)
+            Random rand = new Random();
+            foreach (Artifact item in artifacts)
             {
-                if (robot.GetPosition().Equals(actor.GetPosition()))
+                // check for collision
+                if (player.GetPosition().Equals(item.GetPosition()))
                 {
-                    Artifact artifact = (Artifact) actor;
-                    string message = artifact.GetMessage();
-                    banner.SetText(message);
+                    score += item.GetValue();                   
+                    // move to a random x coord at top of screen
+                    int cols = _videoService.GetWidth() / _videoService.GetCellSize();
+                    item.SetPosition(new Point(rand.Next(0, cols), 0).Scale(_videoService.GetCellSize()));
+                    
                 }
-            } 
+                else{
+                    item.MoveNext(maxX, maxY);
+                }
+            }
+            banner.SetText(score.ToString()); 
         }
 
         /// <summary>
