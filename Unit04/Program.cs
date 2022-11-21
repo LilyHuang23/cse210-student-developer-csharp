@@ -54,7 +54,7 @@ namespace Unit04
             player.SetText("#");
             player.SetFontSize(FONT_SIZE);
             player.SetColor(WHITE);
-            player.SetPosition(new Point(MAX_X/ 2, MAX_Y/ 2));
+            player.SetPosition(new Point(MAX_X/ 2, MAX_Y - CELL_SIZE));
             cast.AddActor("player", player);
 
             // load the messages
@@ -92,6 +92,7 @@ namespace Unit04
                 artifact.SetFontSize(FONT_SIZE);
                 artifact.SetColor(color);
                 artifact.SetPosition(position);
+                artifact.SetVelocity(velocity);
                 artifact.SetValue((text == "*")? DEFAULT_VALUE : -DEFAULT_VALUE);
                 cast.AddActor("artifacts", artifact);
             }

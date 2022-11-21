@@ -88,6 +88,8 @@ namespace Unit04.Game.Directing
                 else{
                     item.MoveNext(maxX, maxY);
                 }
+                
+                // item.MoveNextFalling(maxX,maxY);
             }
             banner.SetText(score.ToString()); 
         }

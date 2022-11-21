@@ -24,7 +24,21 @@ namespace Unit04.Game.Casting
         public Actor()
         {
         }
-
+        /// <summary>
+        /// Create gems and box
+        /// </summary>
+        /// <returns></returns>
+        public string Astrik(){
+            string _astrik ="*";
+            return _astrik;
+        }
+        ///<summary>
+        ///return string 0
+        ///</summary>
+        public string Box(){
+            string  box = "0";
+            return box;
+        }
         /// <summary>
         /// Gets the actor's color.
         /// </summary>
@@ -81,6 +95,12 @@ namespace Unit04.Game.Casting
         {
             int x = ((_position.GetX() + _velocity.GetX()) + maxX) % maxX;
             int y = ((_position.GetY() + _velocity.GetY()) + maxY) % maxY;
+            _position = new Point(x, y);
+        }
+        public void Falling(int maxX, int maxY)
+        {
+            int x = ((_position.GetX() + _velocity.GetX()) + maxX) % maxX;
+            int y = maxY-10;
             _position = new Point(x, y);
         }
 

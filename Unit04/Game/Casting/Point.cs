@@ -74,5 +74,6 @@ namespace Unit04.Game.Casting
             int y = this._y * factor;
             return new Point(x, y);
         }
+        
     }
 }
